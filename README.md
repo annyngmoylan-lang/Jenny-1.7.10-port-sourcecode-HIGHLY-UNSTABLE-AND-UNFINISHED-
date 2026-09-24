@@ -1,2 +1,11 @@
-# Jenny-1.7.10-port-sourcecode-HIGHLY-UNSTABLE-AND-UNFINISHED-
-Jenny mod sourcecode vibecoded (I ran out of codex usage, do what you will with this)
+# Jenny Mod Forge 1.7.10 compatibility port
+
+This workspace contains a Forge 1.7.10 build based on the supplied 1.12.2 JAR. It includes the JAR's original assets and a reference copy of a public reverse-engineered 1.12.2 Java source baseline. The reference source and assets are not evidence of a feature-complete 1.7.10 port: only `src/port/java` is compiled.
+
+The current JAR registers 12 NPCs with spawn items, basic wandering, a Bedrock geometry renderer, and a clip player for original position/rotation/scale tracks. NPCs now start in the supplied dressed models where outfit variants exist. Right-click opens a character action menu; Jenny has the source action names and item prices, while Bia, Ellie, Luna, Allie, Kobold, and Galath have mapped source actions and prices where recovered. Every other included clip remains selectable from the paged animation list. Selected actions are sent to the server, which validates range and item costs. Player attacks no longer kill these NPCs. The renderer resets lighting, blend, and color state per entity, and geometry mirroring and UV rotations follow the source rig conventions. The animation reader handles static channels, pre/post keyframes, hold-last-frame clips, and the easing types used in the supplied animation assets. The `/sexmod` clip command and 231 mapped sound cues remain available. See [PORTING_STATUS.md](PORTING_STATUS.md) for the remaining gaps and verification limits.
+
+The reference source baseline is related to the public [palkaline/jenny-mod-re](https://github.com/palkaline/jenny-mod-re) project. A separate [full remap source](https://github.com/ReverseEngineeringEnthusiasts/Jenny-Mod-Fapcraft) is also available for the 1.12.2 version; neither source project is a 1.7.10 port. The supplied ZIP contains GeckoLib and example Java sources, while its 915 mod assets match those already staged byte for byte. A GeckoLib 1.7.10 reference implementation was consulted for geometry transforms; the port renderer is self-contained and does not link GeckoLib. Its license note is in `thirdparty/GeckoLib-LICENSE.txt`. Original mod assets are copied from the supplied files; this project does not claim to relicense those assets.
+
+## Build
+
+Use Java 8 and run `gradlew build` from this directory. ForgeGradle 1.2 emits an expected version-check network warning on newer systems; this does not prevent the build. The reobfuscated artifact is written to `build/libs`.
